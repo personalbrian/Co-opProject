@@ -1,3 +1,5 @@
+import Player
+
 movement_board_up = {
     "B": "A",
     "C": "B",
@@ -23,6 +25,11 @@ movement_board_down = {
 }
 
 
+class AlreadyHitException(Exception):
+    def __init__(self):
+        pass
+
+
 class BoatComponent:
     def __init__(self, string, number):
         self.y_coordinate = string
@@ -35,8 +42,11 @@ class BoatComponent:
         if self.y_coordinate == dummy_rows and self.x_coordinate == dummy_column:
             coordinate.boat_placed()
 
-    def hit(self):
+    def hit(self, player):
+        if self.boat_been_hit:
+            raise AlreadyHitException
         self.boat_been_hit = True
+        player.update()
 
     def set_y(self, string):
         self.y_coordinate = string
@@ -53,8 +63,3 @@ class BoatComponent:
         new_space = movement_board_down.get(self.y_coordinate, None)
         self.y_coordinate = new_space
         self.x_coordinate = self.x_coordinate - 1
-
-
-
-
-

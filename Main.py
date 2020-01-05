@@ -52,11 +52,6 @@ def instruction_manager():
         instruction_manager()
 
 
-def game_player():
-    while player_1.score < 17 and player_2.score < 17:
-
-
-
 
 
 # Carrier, which has five holes.

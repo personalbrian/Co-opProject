@@ -87,3 +87,21 @@ class Destroyer(Boat):
             self.entire_boat[1].move_singular_right_up()
 
 
+class Submarine(Boat):
+    def __init__(self):
+        self.name = "Submarine"
+        self.entire_boat = [BoatComponent("A", 10), BoatComponent("B", 10), BoatComponent("C", 10)]
+
+    def rotate_submarine(self):
+        if self.entire_boat[0].y_coordinate == self.entire_boat[1].y_coordinate:
+            if self.entire_boat[0].y_coordinate == "J" or self.entire_boat[0].y_coordinate == "I":
+                raise OutOfBoardException
+            self.entire_boat[1].move_singular_down_left()
+            self.entire_boat[2].move_singular_down_left()
+            self.entire_boat[2].move_singular_down_left()
+        else:
+            if self.entire_boat[0].x_coordinate == 10 or self.entire_boat[0].x_coordinate == 9:
+                raise OutOfBoardException
+            self.entire_boat[1].move_singular_right_up()
+            self.entire_boat[2].move_singular_right_up()
+            self.entire_boat[2].move_singular_right_up()
