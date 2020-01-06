@@ -1,5 +1,7 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, NW, CENTER, BOTH
+from Player import Player
+from PIL import ImageTk, Image
 
 
 def instructions(event):
@@ -14,7 +16,24 @@ def instructions(event):
                         + "the game ends and the player that sunk all the ships is the winner.")
 
 
+def set_up(event):
+    start_frame.destroy()
+    root.geometry("800x700")
+    player_1_frame = tk.Frame(root, width=800, height=700)
+    player_1_frame.pack()
+    player_1_frame.config(bg="black")
+    y_axis_board = tk.Canvas(player_1_frame, width=30, height=285, bg="white")
+    y_axis_board.place(x=10, y=390)
+    img = Image.open("/Users/brian/Desktop/y-axis.png")
+    img = img.resize((35,290), Image.ANTIALIAS)
+    y_axis_board.image = ImageTk.PhotoImage(img)
+    y_axis_board.create_image(0, 0, image=y_axis_board.image, anchor="nw")
+    
+
+
 root = tk.Tk()
+player_1 = Player()
+player_2 = Player()
 root.title("BATTLESHIPS")
 root.geometry("600x500")
 start_frame = tk.Frame(root, width=600, height=500)
@@ -27,9 +46,6 @@ instructions_button = tk.Button(start_frame, text="INSTRUCTIONS")
 instructions_button.bind("<Button-1>", instructions)
 instructions_button.place(x=100, y=400)
 instructions_button.config(fg="green")
-start_button = tk.Button(start_frame, text="START")
-start_button.place(x=450, y=400)
-start_button.config(fg="green")
 boat_part_1 = tk.Canvas(start_frame, bg="green", width=400, height=25)
 boat_part_1.place(x=100, y=270)
 boat_part_2 = tk.Canvas(start_frame, bg="green", width=320, height=15)
@@ -46,4 +62,8 @@ boat_part_7 = tk.Canvas(start_frame, bg="black", width=20, height=30)
 boat_part_7.place(x=310, y=190)
 boat_part_7 = tk.Canvas(start_frame, bg="black", width=20, height=30)
 boat_part_7.place(x=345, y=190)
+start_button = tk.Button(start_frame, text="START")
+start_button.bind("<Button-1>", set_up)
+start_button.place(x=450, y=400)
+start_button.config(fg="green")
 root.mainloop()
